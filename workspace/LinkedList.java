@@ -1,6 +1,6 @@
 /*
 Author: Spencer Gilcrest
-Date: 9/24/25
+Date: 9/29/25
 This class has methods lets you manipulate a linked list of Strings
 *
 Problem:  Write a program that keeps and manipulates a linked list of
@@ -135,5 +135,64 @@ public class LinkedList{
     head = null;
     listCount = 0;
   
+  }
+
+  /* 
+   * precondition: the list has been intitialized
+   * postcondition: the entire list has been reversed
+   */
+  public void reverse(){
+
+    ListNode previousNode = null; 
+    ListNode currentNode = head;
+    ListNode nextNode = null;
+    
+
+    while (currentNode != null){
+      
+      nextNode = currentNode.getNext();
+      currentNode.setNext(previousNode);
+      previousNode = currentNode;
+      currentNode = nextNode;
+    }
+    
+    head = previousNode;
+    
+  }
+
+  public void nReverse(int n){
+    ListNode prevChunkLastNode = null;
+    ListNode currentNode = head;
+    int nodesLeft = listCount;
+
+    //while thers enough nodes
+    while (nodesLeft >= n){
+      ListNode startOfChunk = currentNode;
+      ListNode previousNode = null;
+      ListNode nextNode = null;
+
+      //does reversing 
+      for (int i = 0; i < n; i++){
+        nextNode = currentNode.getNext();
+        currentNode.setNext(previousNode);
+        previousNode = currentNode;
+        currentNode = nextNode;
+      }
+
+      //on the first chunk there is no previous chunk so you have to reset head
+      if (prevChunkLastNode == null){
+        head = previousNode;
+      }
+      //on the rest of chunks just connect the end of the previous chunk to the start of current one
+      else {
+        prevChunkLastNode.setNext(previousNode);
+      }
+
+      //startOfChunk is really end of chunk after reversing so connect to next chunk and make it end of previous chunk
+      startOfChunk.setNext(currentNode);
+      prevChunkLastNode = startOfChunk;
+
+      nodesLeft -= n;
+    }
   }
 }
