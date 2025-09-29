@@ -160,6 +160,8 @@ public class LinkedList{
     
   }
 
+  //preconidition: list has been initialized with atleast 1 element and n not greater than listCount
+  //postcondition: reverses each chunk of n nodes, if there isn't enough elements to fit in a chunk they dont get reversed
   public void nReverse(int n){
     ListNode prevChunkLastNode = null;
     ListNode currentNode = head;
